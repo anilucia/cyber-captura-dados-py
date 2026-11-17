@@ -44,7 +44,16 @@ class MalwareLabTests(unittest.TestCase):
     def test_reject_symlink_sample(self):
         sample = self.base / "samples" / "documento.txt"
         sample.unlink()
-        sample.symlink_to(self.base / "reports" / "outside")
+
+        try:
+            sample.symlink_to(self.base / "reports" / "outside")
+        except OSError as error:
+            if getattr(error, "winerror", None) == 1314:
+                self.skipTest(
+                    "Windows sem permissão para criar symlinks"
+                )
+            raise
+
         with self.assertRaises(RuntimeError):
             encrypt()
 
