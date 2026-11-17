@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-malware-lab"
+version = "1.0.0"
+description = "Laboratório educacional offline de ransomware, captura consentida e análise defensiva"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Projeto educacional de cibersegurança"}]
+dependencies = ["cryptography>=42,<49"]
+
+[project.scripts]
+malware-lab = "malware_lab.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["malware_lab*"]
